@@ -22,6 +22,6 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 
+target_link_libraries(${PROJECT_NAME} jsoncpp)
 target_link_libraries(${PROJECT_NAME} drogon)
 target_link_libraries(${PROJECT_NAME} ncurses)
-target_link_libraries(${PROJECT_NAME} jsoncpp)
