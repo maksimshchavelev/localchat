@@ -1,0 +1,58 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Страница — 1" id="G2y_Jy2We_cTd8QbTsRb">
+    <mxGraphModel dx="1143" dy="687" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s9AERfWABQPQtV7ljenc-2" value="LocalChat modules" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="49" y="50" width="671" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-8" value="Discovery" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-2">
+          <mxGeometry x="20" y="40" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-9" value="Search for running LocalChat&lt;div&gt;clients in the local network&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="s9AERfWABQPQtV7ljenc-8">
+          <mxGeometry x="10" y="40" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-12" value="&lt;div&gt;Implements with&lt;/div&gt;&lt;b&gt;Discovery&lt;/b&gt; class" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-8">
+          <mxGeometry x="40" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-14" value="Transport" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-2">
+          <mxGeometry x="240" y="40" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-16" value="Sending and receiving&amp;nbsp;&lt;div&gt;raw messages&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="s9AERfWABQPQtV7ljenc-14">
+          <mxGeometry x="25" y="40" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-17" value="&lt;div&gt;Implements with&lt;/div&gt;&lt;b&gt;TransportClient &lt;/b&gt;and&lt;b&gt; TransportServer&lt;/b&gt;&amp;nbsp;&lt;div&gt;classes&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-14">
+          <mxGeometry x="40" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-18" value="Protocol" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-2">
+          <mxGeometry x="20" y="230" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-20" value="Serializes and deserializes&lt;div&gt;messages&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="s9AERfWABQPQtV7ljenc-18">
+          <mxGeometry x="15" y="40" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-21" value="&lt;div&gt;Implements with&lt;/div&gt;&lt;b&gt;ProtocolSerializer&amp;nbsp;&lt;/b&gt;&lt;div&gt;and&lt;b&gt;&amp;nbsp;&lt;/b&gt;&lt;b&gt;ProtocolDeserializer&lt;/b&gt;&amp;nbsp;&lt;div&gt;classes&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-18">
+          <mxGeometry x="20" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-22" value="UI" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-2">
+          <mxGeometry x="240" y="230" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-24" value="Console UI" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="s9AERfWABQPQtV7ljenc-22">
+          <mxGeometry x="60" y="50" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-25" value="&lt;div&gt;Implements with&lt;/div&gt;&lt;b&gt;UI &lt;/b&gt;class" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-22">
+          <mxGeometry x="40" y="90" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-26" value="Storage" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-2">
+          <mxGeometry x="461" y="40" width="200" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-27" value="Messages history" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="s9AERfWABQPQtV7ljenc-26">
+          <mxGeometry x="40" y="45" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s9AERfWABQPQtV7ljenc-28" value="&lt;div&gt;Implements with&lt;/div&gt;&lt;b&gt;Storage&lt;/b&gt;&amp;nbsp;class" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="s9AERfWABQPQtV7ljenc-26">
+          <mxGeometry x="20" y="90" width="160" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
