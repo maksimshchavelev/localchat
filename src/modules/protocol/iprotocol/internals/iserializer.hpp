@@ -25,6 +25,6 @@ public:
      * @param msg Message struct
      * @return std::any object with serialized message
      */
-    virtual std::any serialize(const Message& msg) = 0;
+    virtual std::any serialize(const Message& msg) const = 0;
 };
 

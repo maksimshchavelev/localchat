@@ -25,6 +25,6 @@ public:
      * @param input std::any object with serialized message
      * @return Message object with deserialized message
      */
-    virtual Message deserialize(const std::any& input) = 0;
+    virtual Message deserialize(const std::any& input) const = 0;
 };
 

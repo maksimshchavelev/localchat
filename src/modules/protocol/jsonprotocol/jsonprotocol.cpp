@@ -9,7 +9,7 @@
 
 
 
-std::any JsonProtocol::serialize(const Message& msg)
+std::any JsonProtocol::serialize(const Message& msg) const
 {
     uint64_t timestamp_minutes =
         std::chrono::duration_cast<std::chrono::minutes>(msg.send_time.time_since_epoch()).count();
@@ -26,7 +26,7 @@ std::any JsonProtocol::serialize(const Message& msg)
 
 
 
-Message JsonProtocol::deserialize(const std::any& input)
+Message JsonProtocol::deserialize(const std::any& input) const
 {
     Json::Value root = std::any_cast<Json::Value>(input);
 
