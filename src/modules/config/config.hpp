@@ -18,7 +18,3 @@ struct Config
 {
     static uint16_t port;
 };
-
-
-uint16_t Config::port = 14540;
-
