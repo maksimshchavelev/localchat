@@ -20,7 +20,7 @@ public:
      * @param msg Message
      * @return std::any with Json::Value inside
      */
-    std::any serialize(const Message& msg) override;
+    std::any serialize(const Message& msg) const override;
 
 
     /**
@@ -28,5 +28,5 @@ public:
      * @param input std::any with Json::Value inside
      * @return Message
      */
-    Message deserialize(const std::any& input) override;
+    Message deserialize(const std::any& input) const override;
 };
