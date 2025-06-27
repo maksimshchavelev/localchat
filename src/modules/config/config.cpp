@@ -8,4 +8,4 @@
 #include "config.hpp"
 
 
-uint16_t Config::port = 14540;
+uint16_t Config::port = 14570;
