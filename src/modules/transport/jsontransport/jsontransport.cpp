@@ -8,7 +8,7 @@
 
 #include "jsontransport.hpp"
 
-
+#include <iostream>
 
 
 /* public method */
@@ -38,10 +38,25 @@ void JsonTransport::run_server_async(
 
             std::string data;
 
-            if(client->recvline(data, 32768, 100) <= 0)
-                continue; /* if error */
+            char buffer[32768];
 
-            auto deserialized_result = protocol_.deserialize(Json::Value(data));
+            size_t received = client->recv(reinterpret_cast<uint8_t*>(buffer), sizeof(buffer), false, 100);
+            if(received > 0)
+                data = buffer;
+
+            client->close();
+
+            Json::Value value;
+            JSONCPP_STRING err;
+
+            Json::CharReaderBuilder builder;
+            const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
+            if (!reader->parse(data.c_str(), data.c_str() + data.size(), &value,
+                               &err)) {
+                continue;
+            }
+
+            auto deserialized_result = protocol_.deserialize(value);
 
             callback(deserialized_result);
         }
