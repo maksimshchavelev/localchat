@@ -18,5 +18,7 @@ int main(int argc, char** argv)
         std::cout << msg.send_time << std::endl << std::endl;
     });
 
+    drogon::app().run();
+
     return 0;
 }
