@@ -2,15 +2,21 @@
 
 
 #include "modules/discovery/discovery.hpp"
+#include "modules/transport/jsontransport/jsontransport.hpp"
 
 
 int main(int argc, char** argv)
 {
     Discovery& disc = Discovery::get_instance();
 
-    drogon::app()
-        .addListener("0.0.0.0", 14570);
-    drogon::app().run();
+    JsonProtocol protocol;
+    JsonTransport jsontransport(protocol);
+
+    jsontransport.run_server_async([](Message msg){
+        std::cout << from_byteVector<std::string>(msg.data) << std::endl;
+        std::cout << from_byteVector<std::string>(msg.sender) << std::endl;
+        std::cout << msg.send_time << std::endl << std::endl;
+    });
 
     return 0;
 }
