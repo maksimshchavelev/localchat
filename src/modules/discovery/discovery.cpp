@@ -135,8 +135,6 @@ Discovery::Discovery() : broadcast_sender_(), broadcast_receiver_(_get_ipv4_bina
     broadcast_receiver_.run_async([this](std::string&& msg, net::Address&& sender){
         std::lock_guard<std::mutex> lock(clients_mutex_);
         clients_[sender.getIP()] = std::chrono::steady_clock::now();
-
-        LOG_INFO << sender.getIPStr();
     });
 }
 
