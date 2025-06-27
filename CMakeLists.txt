@@ -16,12 +16,23 @@ endif()
 # Finding sources
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/*.cpp
-    ${CMAKE_SOURCE_DIR}/src/*.hpp)
+    ${CMAKE_SOURCE_DIR}/src/*.hpp
+    ${CMAKE_SOURCE_DIR}/src/*.tpp)
 
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} libs/AlexandreRouma-net/net.cpp)
 
+find_package(Drogon REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} jsoncpp)
-target_link_libraries(${PROJECT_NAME} drogon)
+target_link_libraries(${PROJECT_NAME} Drogon::Drogon)
 target_link_libraries(${PROJECT_NAME} ncurses)
+
+target_link_directories(${PROJECT_NAME} PRIVATE libs)
+target_include_directories(${PROJECT_NAME} PRIVATE libs)
+
+
+if(WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE wsock32 ws2_32 iphlpapi)
+    target_compile_options(${PROJECT_NAME} PRIVATE /std:c++23)
+endif()
