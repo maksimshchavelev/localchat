@@ -9,6 +9,7 @@
 
 
 #include <thread>
+#include <condition_variable>
 #include "../discovery/discovery.hpp"
 #include "../transport/jsontransport/jsontransport.hpp"
 #include "../discovery/discovery.hpp"
