@@ -22,7 +22,12 @@ App& app()
 
 
 /* private ctor */
-App::App() : exit_request_(false), json_protocol_(), json_transport_(json_protocol_) {}
+App::App() : exit_request_(false), json_protocol_(), json_transport_(json_protocol_), ui_()
+{
+    ui_.run_async([this](const std::string& msg){
+        std::cout << "Got msg " << msg;
+    });
+}
 
 
 
