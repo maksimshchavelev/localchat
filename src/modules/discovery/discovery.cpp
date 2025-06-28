@@ -25,7 +25,8 @@ Discovery &Discovery::get_instance() noexcept
 /* public method */
 std::vector<std::string> Discovery::get_clients_ip_adresses()
 {
-    std::vector<std::string> res(clients_.size());
+    std::vector<std::string> res;
+    res.reserve(clients_.size());
 
     std::lock_guard<std::mutex> lock(clients_mutex_);
 
