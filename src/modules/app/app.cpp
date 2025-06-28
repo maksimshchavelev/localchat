@@ -26,9 +26,7 @@ App::App() : exit_request_(false), json_protocol_(),
     json_transport_(json_protocol_),
     discovery_(Discovery::get_instance()), ui_()
 {
-    ui_.run_async([this](const std::string& msg){
-        _outcoming_message_handler(msg);
-    });
+    ui_.run_async(std::bind(&App::_outcoming_message_handler, this, std::placeholders::_1));
 }
 
 
@@ -40,8 +38,9 @@ void App::run()
 {
     std::thread runner([this]()
     {
-        json_transport_.run_receiving_messages_async(std::bind(&App::_incoming_message_handler, this, std::placeholders::_1));
+        json_transport_.run_receiving_messages_async([this](Message msg){_incoming_message_handler(msg);});
 
+        // std::bind(&App::_incoming_message_handler, this, std::placeholders::_1)
 
         /* wait for exit request */
         std::unique_lock<std::mutex> lock(mutex_);
@@ -75,7 +74,20 @@ void App::exit()
 /* public method */
 void App::_incoming_message_handler(Message msg)
 {
+    using namespace std::chrono;
 
+    std::ostringstream oss;
+
+    auto utc = system_clock::to_time_t(msg.send_time);
+    auto local_tm = std::localtime(&utc);
+    oss << std::put_time(local_tm, "%d.%m.%Y %H:%M");
+
+    auto formatted_message = std::format("[FROM {} AT {}]: {}",
+                                         from_byteVector<std::string>(msg.sender),
+                                         oss.str(),
+                                         from_byteVector<std::string>(msg.data));
+
+    ui_.print_incoming_message(formatted_message);
 }
 
 
@@ -100,12 +112,9 @@ void App::_outcoming_message_handler(const std::string &msg)
 /* public method */
 void App::_send_msg_to_everyone(const Message &msg)
 {
-    std::cout << discovery_.get_clients_ip_addresses().size();
-
     /* iterate over all clients */
     for(const auto& ip : discovery_.get_clients_ip_addresses())
     {
-        std::cout << ip << std::endl;
         json_transport_.send_message(ip, msg);
     }
 }
