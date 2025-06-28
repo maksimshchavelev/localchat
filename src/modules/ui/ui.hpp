@@ -9,8 +9,12 @@
 
 
 #include <thread>
-#include <string>
 #include <iostream>
+#include <string>
+#include <ftxui/dom/elements.hpp>
+#include <ftxui/screen/screen.hpp>
+#include <ftxui/component/component.hpp>
+#include <ftxui/component/screen_interactive.hpp>
 
 
 /**
@@ -34,9 +38,11 @@ public:
 
     /**
      * @brief Print incoming message.
-     * @param msg Formatted message string
+     * @param msg Message
+     * @param sender Sender username
+     * @param time Send time
      */
-    void print_incoming_message(const std::string& msg);
+    void print_incoming_message(const std::string& sender, const std::string& time, const std::string& msg);
 
 
     /**
@@ -49,6 +55,9 @@ public:
 
 private:
     std::mutex IO_mutex_; /* mutex for blocking input-output */
+
+    std::vector<ftxui::Element> messages_;
+    std::shared_ptr<ftxui::ScreenInteractive> screen_;
 };
 
 

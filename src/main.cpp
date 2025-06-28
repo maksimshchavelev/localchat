@@ -2,6 +2,7 @@
 
 
 #include <signal.h>
+#include <iostream>
 #include "modules/app/app.hpp"
 
 
