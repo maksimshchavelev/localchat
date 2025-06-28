@@ -72,6 +72,16 @@ void App::exit()
 
 
 /* public method */
+void App::set_username(const std::string &username)
+{
+    username_ = username;
+}
+
+
+
+
+
+/* public method */
 void App::_incoming_message_handler(Message msg)
 {
     using namespace std::chrono;
@@ -98,7 +108,7 @@ void App::_outcoming_message_handler(const std::string &msg)
 {
     Message _msg
     {
-        .sender = to_byteVector(std::string("...")),
+        .sender = to_byteVector(username_),
         .data = to_byteVector(msg),
         .send_time = std::chrono::system_clock::now()
     };
