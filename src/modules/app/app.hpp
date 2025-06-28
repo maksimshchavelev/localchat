@@ -11,6 +11,7 @@
 #include <thread>
 #include "../discovery/discovery.hpp"
 #include "../transport/jsontransport/jsontransport.hpp"
+#include "../ui/ui.hpp"
 
 
 /**
@@ -45,6 +46,8 @@ private:
 
     JsonProtocol            json_protocol_;
     JsonTransport           json_transport_;
+
+    UI                      ui_;
 
 
     /**
