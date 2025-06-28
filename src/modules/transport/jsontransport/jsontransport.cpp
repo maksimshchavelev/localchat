@@ -21,7 +21,7 @@ JsonTransport::JsonTransport(const JsonProtocol &protocol) : protocol_(protocol)
 
 
 /* public method */
-void JsonTransport::run_server_async(
+void JsonTransport::run_receiving_messages_async(
     std::function<void(decltype(std::declval<IProtocol>().deserialize(std::any())))> callback) const
 {
     static bool running = false;

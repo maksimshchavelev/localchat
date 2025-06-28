@@ -26,7 +26,7 @@ public:
      * @brief Run listeting requests (server) async
      * @param callback Callback which will be called upon receipt of the request
      */
-    void run_server_async(
+    void run_receiving_messages_async(
         std::function<void(decltype(std::declval<IProtocol>().deserialize(std::any())))> callback) const override;
 
 
