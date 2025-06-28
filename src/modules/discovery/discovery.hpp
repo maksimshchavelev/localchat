@@ -78,6 +78,6 @@ public:
      * @brief Get IP addresses of all clients in string format
      * @return `std::vector<std::string>`
      */
-    std::vector<std::string> get_clients_ip_adresses();
+    std::vector<std::string> get_clients_ip_addresses();
 
 };

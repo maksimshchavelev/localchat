@@ -100,10 +100,10 @@ void App::_outcoming_message_handler(const std::string &msg)
 /* public method */
 void App::_send_msg_to_everyone(const Message &msg)
 {
-    std::cout << discovery_.get_clients_ip_adresses().size();
+    std::cout << discovery_.get_clients_ip_addresses().size();
 
     /* iterate over all clients */
-    for(const auto& ip : discovery_.get_clients_ip_adresses())
+    for(const auto& ip : discovery_.get_clients_ip_addresses())
     {
         std::cout << ip << std::endl;
         json_transport_.send_message(ip, msg);
