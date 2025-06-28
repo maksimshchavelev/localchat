@@ -30,7 +30,25 @@ public:
         std::function<void(decltype(std::declval<IProtocol>().deserialize(std::any())))> callback) const override;
 
 
+    /**
+     * @brief Send text message to the new
+     * @param host IPv4 address of host (receiver)
+     * @param msg Message
+     * @return `true` if success, `false` if fail
+     */
+    bool send_message(const std::string& host, const Message& msg) const override;
+
+
+
 protected:
     const JsonProtocol& protocol_;
+
+
+private:
+    /**
+     * @brief Get `Json::Value` from string
+     * @return `std::optional` with `Json::Value` if success, otherwise empty `std::optional`
+     */
+    std::optional<Json::Value> _json_from_str(const std::string& data) const;
 };
 

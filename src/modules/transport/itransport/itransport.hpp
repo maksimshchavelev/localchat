@@ -24,4 +24,13 @@ public:
      */
     virtual void run_server_async(
         std::function<void(decltype(std::declval<IProtocol>().deserialize(std::any())))> callback) const = 0;
+
+
+    /**
+     * @brief Send text message to the new
+     * @param host IPv4 address of host (receiver)
+     * @param msg Message
+     * @return `true` if success, `false` if fail
+     */
+    virtual bool send_message(const std::string& host, const Message& msg) const = 0;
 };
