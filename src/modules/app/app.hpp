@@ -41,6 +41,13 @@ public:
     void exit();
 
 
+    /**
+     * @brief Set username which will be displayed by users when receiving a message
+     * @param username Username
+     */
+    void set_username(const std::string& username);
+
+
 private:
     std::condition_variable cv_;
     std::mutex              mutex_;
@@ -52,6 +59,8 @@ private:
     Discovery&              discovery_;
 
     UI                      ui_;
+
+    std::string             username_;
 
 
     /**

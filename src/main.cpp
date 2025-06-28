@@ -12,8 +12,12 @@ int main(int argc, char** argv)
 {
     signal(SIGINT, exit_signal);
 
+    std::string username;
+    std::cout << "Type username >>> ";
 
+    while(!std::getline(std::cin, username)) { std::cout << "Type username >>> "; }
 
+    app().set_username(username);
     app().run();
 
     return 0;
