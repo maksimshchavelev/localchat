@@ -22,10 +22,12 @@ App& app()
 
 
 /* private ctor */
-App::App() : exit_request_(false), json_protocol_(), json_transport_(json_protocol_), ui_()
+App::App() : exit_request_(false), json_protocol_(),
+    json_transport_(json_protocol_),
+    discovery_(Discovery::get_instance()), ui_()
 {
     ui_.run_async([this](const std::string& msg){
-        std::cout << "Got msg " << msg;
+        _outcoming_message_handler(msg);
     });
 }
 
@@ -74,6 +76,38 @@ void App::exit()
 void App::_incoming_message_handler(Message msg)
 {
 
+}
+
+
+
+
+/* public method */
+void App::_outcoming_message_handler(const std::string &msg)
+{
+    Message _msg
+    {
+        .sender = to_byteVector(std::string("...")),
+        .data = to_byteVector(msg),
+        .send_time = std::chrono::system_clock::now()
+    };
+
+    _send_msg_to_everyone(_msg);
+}
+
+
+
+
+/* public method */
+void App::_send_msg_to_everyone(const Message &msg)
+{
+    std::cout << discovery_.get_clients_ip_adresses().size();
+
+    /* iterate over all clients */
+    for(const auto& ip : discovery_.get_clients_ip_adresses())
+    {
+        std::cout << ip << std::endl;
+        json_transport_.send_message(ip, msg);
+    }
 }
 
 
