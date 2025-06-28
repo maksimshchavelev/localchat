@@ -90,14 +90,13 @@ void App::_incoming_message_handler(Message msg)
 
     auto utc = system_clock::to_time_t(msg.send_time);
     auto local_tm = std::localtime(&utc);
-    oss << std::put_time(local_tm, "%d.%m.%Y %H:%M");
+    oss << std::put_time(local_tm, "%H:%M");
 
-    auto formatted_message = std::format("[FROM {} AT {}]: {}",
-                                         from_byteVector<std::string>(msg.sender),
-                                         oss.str(),
-                                         from_byteVector<std::string>(msg.data));
-
-    ui_.print_incoming_message(formatted_message);
+    ui_.print_incoming_message(
+        from_byteVector<std::string>(msg.sender),
+        oss.str(),
+        from_byteVector<std::string>(msg.data)
+    );
 }
 
 

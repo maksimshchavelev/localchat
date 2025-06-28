@@ -20,15 +20,30 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/*.tpp)
 
 
+
 add_executable(${PROJECT_NAME} ${SOURCES} libs/AlexandreRouma-net/net.cpp)
-
-find_package(Drogon REQUIRED)
-
-target_link_libraries(${PROJECT_NAME} jsoncpp)
-target_link_libraries(${PROJECT_NAME} ncurses)
 
 target_link_directories(${PROJECT_NAME} PRIVATE libs)
 target_include_directories(${PROJECT_NAME} PRIVATE libs)
+
+
+# For FTXUI
+include(FetchContent)
+FetchContent_Declare(ftxui
+  GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
+  GIT_TAG v6.1.9
+)
+FetchContent_MakeAvailable(ftxui)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    # Chose a submodule
+    ftxui::component
+    ftxui::dom
+    ftxui::screen
+
+    jsoncpp
+)
+
 
 
 if(WIN32)
