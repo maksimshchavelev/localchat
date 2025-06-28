@@ -25,7 +25,6 @@ add_executable(${PROJECT_NAME} ${SOURCES} libs/AlexandreRouma-net/net.cpp)
 find_package(Drogon REQUIRED)
 
 target_link_libraries(${PROJECT_NAME} jsoncpp)
-target_link_libraries(${PROJECT_NAME} Drogon::Drogon)
 target_link_libraries(${PROJECT_NAME} ncurses)
 
 target_link_directories(${PROJECT_NAME} PRIVATE libs)
