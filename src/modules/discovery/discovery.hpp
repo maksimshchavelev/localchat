@@ -42,7 +42,7 @@ private:
      * @brief Get all IPv4 ifaddrses
      * @return `std::vector<ifaddrs*>`
      */
-    std::vector<ifaddrs*> _get_ipv4_ifaddrses();
+    std::vector<netif::IF_ADDRS> _get_ipv4_ifaddrses();
 
 
 
@@ -50,7 +50,7 @@ private:
      * @brief Get all IPv4 binary addresses accross all interfaces
      * @return `std::vector<uint32_t>`
      */
-    std::set<uint32_t> _get_ipv4_binary_addreses();
+    std::set<uint32_t> _get_ipv4_binary_addresses();
 
 
 

@@ -43,15 +43,18 @@ std::vector<std::string> Discovery::get_clients_ip_addresses()
 
 
 /* private method */
-std::vector<ifaddrs*> Discovery::_get_ipv4_ifaddrses()
+std::vector<netif::IF_ADDRS> Discovery::_get_ipv4_ifaddrses()
 {
-    std::vector<ifaddrs*> result;
-    ifaddrs* addrs;
+    std::vector<netif::IF_ADDRS> result;
+    netif::IF_ADDRS addrs;
 
     /* AF_UNSPEC is an IPv4 and IPv6 addresses */
     if(netif::getAddresses(AF_UNSPEC, &addrs) == 0)
     {
-        for(ifaddrs* current_ifaddr = addrs; current_ifaddr; current_ifaddr = current_ifaddr->ifa_next)
+
+    #if defined(__unix__)
+        /* unix implementation */
+        for(netif::IF_ADDRS current_ifaddr = addrs; current_ifaddr; current_ifaddr = current_ifaddr->ifa_next)
         {
             /* AF_INET is an IPv4 address */
             if(!current_ifaddr->ifa_addr || current_ifaddr->ifa_addr->sa_family != AF_INET)
@@ -59,6 +62,13 @@ std::vector<ifaddrs*> Discovery::_get_ipv4_ifaddrses()
             /* else */
             result.push_back(current_ifaddr);
         }
+
+
+    #elif defined(_WIN32) or defined(_WIN64)
+        /* windows implementation */
+    #else
+        static_assert(false, "Unsupported platform")
+    #endif
     } else {
         throw std::runtime_error("Error in function netif::getAddresses(AF_UNSPEC, &addrs)");
     }
@@ -71,14 +81,23 @@ std::vector<ifaddrs*> Discovery::_get_ipv4_ifaddrses()
 
 
 /* private method */
-std::set<uint32_t> Discovery::_get_ipv4_binary_addreses()
+std::set<uint32_t> Discovery::_get_ipv4_binary_addresses()
 {
-    std::vector<ifaddrs*> addrs = _get_ipv4_ifaddrses();
+    auto addrs = _get_ipv4_ifaddrses();
     std::set<uint32_t> result;
 
-    for(ifaddrs* address : addrs)
+    for(auto* address : addrs)
     {
+    #if defined(__unix)
+        /* unix implementation */
         result.insert(ntohl(reinterpret_cast<sockaddr_in*>(address->ifa_addr)->sin_addr.s_addr));
+
+    #elif defined(_WIN32) or defined(_WIN64)
+        /* windows implementation */
+
+    #else
+        static_assert(false, "Unsupported platform")
+    #endif
     }
 
     return result;
@@ -127,7 +146,7 @@ void Discovery::_run_clients_cleaner_async(std::chrono::seconds max_interval)
 
 
 /* private method */
-Discovery::Discovery() : broadcast_sender_(), broadcast_receiver_(_get_ipv4_binary_addreses())
+Discovery::Discovery() : broadcast_sender_(), broadcast_receiver_(_get_ipv4_binary_addresses())
 {
     _run_clients_cleaner_async(std::chrono::seconds(5));
 
