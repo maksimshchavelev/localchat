@@ -20,6 +20,9 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/*.tpp)
 
 
+# fingind jsoncpp
+find_package(jsoncpp CONFIG REQUIRED)
+
 
 add_executable(${PROJECT_NAME} ${SOURCES} libs/AlexandreRouma-net/net.cpp)
 
@@ -41,7 +44,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     ftxui::dom
     ftxui::screen
 
-    jsoncpp
+    jsoncpp_static
 )
 
 
