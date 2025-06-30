@@ -32,7 +32,18 @@ std::vector<std::string> Discovery::get_clients_ip_addresses()
 
     for(auto& [ip, _] : clients_)
     {
+    #if defined(__unix__)
+        /* unix implementation */
         in_addr inaddr { .s_addr = ntohl(ip) };
+
+    #elif defined(_WIN32) or defined(_WIN64)
+        /* windows implementation */
+        in_addr inaddr;
+        inaddr.S_un.S_addr = ntohl(ip);
+
+    #else
+        static_assert(false, "Unsupported platrofm");
+    #endif
         res.emplace_back(inet_ntoa(inaddr));
     }
 
