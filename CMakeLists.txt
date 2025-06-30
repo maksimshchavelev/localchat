@@ -44,12 +44,12 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     ftxui::dom
     ftxui::screen
 
-    jsoncpp_static
+    jsoncpp_lib
 )
 
 
 
 if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
     target_link_libraries(${PROJECT_NAME} PRIVATE wsock32 ws2_32 iphlpapi)
-    target_compile_options(${PROJECT_NAME} PRIVATE /std:c++23)
 endif()
