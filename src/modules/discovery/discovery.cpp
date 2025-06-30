@@ -66,6 +66,15 @@ std::vector<netif::IF_ADDRS> Discovery::_get_ipv4_ifaddrses()
 
     #elif defined(_WIN32) or defined(_WIN64)
         /* windows implementation */
+        for(netif::IF_ADDRS current_ifaddr = addrs; current_ifaddr; current_ifaddr = current_ifaddr->Next)
+        {
+            /* AF_INET is an IPv4 address */
+            if(!current_ifaddr->AdapterName || current_ifaddr->IfType != AF_INET)
+                continue;
+            /* else */
+            result.push_back(current_ifaddr);
+        }
+
     #else
         static_assert(false, "Unsupported platform")
     #endif
@@ -94,7 +103,8 @@ std::set<uint32_t> Discovery::_get_ipv4_binary_addresses()
 
     #elif defined(_WIN32) or defined(_WIN64)
         /* windows implementation */
-
+        result.insert(ntohl(reinterpret_cast<sockaddr_in*>
+                            (address->FirstUnicastAddress->Address.lpSockaddr)->sin_addr.S_un.S_addr));
     #else
         static_assert(false, "Unsupported platform")
     #endif

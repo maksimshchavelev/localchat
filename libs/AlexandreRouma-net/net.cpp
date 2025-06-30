@@ -1,6 +1,8 @@
 #include "net.h"
+#include <codecvt>
 #include <string.h>
 #include <stdexcept>
+#include <xlocbuf>
 
 #ifdef _WIN32
 #define WOULD_BLOCK (WSAGetLastError() == WSAEWOULDBLOCK)
