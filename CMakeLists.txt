@@ -1,9 +1,15 @@
 cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
 set(PROJECT_NAME localchat)
-set(PROJECT_VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 23)
-project(${PROJECT_NAME} LANGUAGES CXX)
+project(${PROJECT_NAME} LANGUAGES CXX VERSION 1.0.0)
+
+
+if(WIN32)
+  set(PLATFORM windows)
+elseif(LINUX)
+  set(PLATFORM linux)
+endif()
 
 
 # If no build type is set, default to Release
@@ -30,6 +36,9 @@ target_link_directories(${PROJECT_NAME} PRIVATE libs)
 target_include_directories(${PROJECT_NAME} PRIVATE libs)
 
 
+
+set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
+
 # For FTXUI
 include(FetchContent)
 FetchContent_Declare(ftxui
@@ -37,6 +46,7 @@ FetchContent_Declare(ftxui
   GIT_TAG v6.1.9
 )
 FetchContent_MakeAvailable(ftxui)
+
 
 
 
@@ -68,3 +78,32 @@ if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PRIVATE NOMINMAX)
     target_link_libraries(${PROJECT_NAME} PRIVATE wsock32 ws2_32 iphlpapi)
 endif()
+
+
+
+
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+
+
+
+
+# Building package
+message(STATUS "Building .deb package for Linux: ON")
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+set(CPACK_PACKAGE_DESCRIPTION "Console-based local network messenger")
+set(CPACK_DEBIAN_PACKAGE_SECTION "utils")
+set(CPACK_DEBIAN_PACKAGE_LICENSE "MIT")
+set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${PLATFORM}-${CPACK_DEBIAN_PACKAGE_ARCHITECTURE}")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Maksim Shchavelev maksimshchavelev@gmail.com")
+set(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://github.com/maksimshchavelev/localchat")
+
+include(CPack)
+
+
+
+
