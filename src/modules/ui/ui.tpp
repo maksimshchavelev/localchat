@@ -27,7 +27,13 @@ void UI::run_async(OutcomingMessageFunctor&& outcoming_msg_callback)
     {
         using namespace ftxui;
 
-        std::cout << "\033[2J\033[H"; /* ANSI code for clear screen */
+
+    #if defined(__unix__)
+        std::cout << "\033[2J\033[H"; /* ANSI code for clear screen in Linux */
+    #elif defined(_WIN32) or defined(_WIN64)
+        std::cout << "\x1B[2J\x1B[H";
+    #endif
+
 
         screen_ = std::shared_ptr<ftxui::ScreenInteractive>(
             new ftxui::ScreenInteractive(ftxui::ScreenInteractive::TerminalOutput())); /* create screen */
