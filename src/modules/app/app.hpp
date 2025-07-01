@@ -67,7 +67,7 @@ private:
      * @brief Handle incoming message
      * @param msg Message
      */
-    void _incoming_message_handler(Message msg);
+    void _incoming_message_handler(const Message& msg);
 
 
 
