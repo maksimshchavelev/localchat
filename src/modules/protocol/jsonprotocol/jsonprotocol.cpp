@@ -28,7 +28,7 @@ std::any JsonProtocol::serialize(const Message& msg) const
 
 Message JsonProtocol::deserialize(const std::any& input) const
 {
-    Json::Value root = std::any_cast<Json::Value>(input);
+    const Json::Value root = std::any_cast<const Json::Value&>(input);
 
     std::string sender = root["sender"].asString();
     std::string data = root["data"].asString();
