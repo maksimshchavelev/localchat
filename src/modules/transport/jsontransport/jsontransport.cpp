@@ -31,7 +31,7 @@ void JsonTransport::run_receiving_messages_async(
 
     running = true;
 
-    std::thread runner([this, &callback]()
+    std::thread runner([this, callback]()
     {
         auto listener = net::listen("0.0.0.0", Config::port);
 
