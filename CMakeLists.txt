@@ -38,14 +38,29 @@ FetchContent_Declare(ftxui
 )
 FetchContent_MakeAvailable(ftxui)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-    # Chose a submodule
-    ftxui::component
-    ftxui::dom
-    ftxui::screen
+
+
+
+if(WIN32)
+  target_link_libraries(${PROJECT_NAME} PRIVATE
+      # Chose a submodule
+      ftxui::component
+      ftxui::dom
+      ftxui::screen
 
     jsoncpp_lib
-)
+  )
+else()
+  target_link_libraries(${PROJECT_NAME} PRIVATE
+      # Chose a submodule
+      ftxui::component
+      ftxui::dom
+      ftxui::screen
+
+    jsoncpp_static # static linking with jsoncpp
+  )
+endif()
+
 
 
 
