@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28 FATAL_ERROR)
 
-set(PROJECT_NAME LocalChat)
+set(PROJECT_NAME localchat)
 set(PROJECT_VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 23)
 project(${PROJECT_NAME} LANGUAGES CXX)
