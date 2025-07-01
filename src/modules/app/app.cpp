@@ -38,7 +38,8 @@ void App::run()
 {
     std::thread runner([this]()
     {
-        json_transport_.run_receiving_messages_async([this](Message msg){_incoming_message_handler(msg);});
+        json_transport_.run_receiving_messages_async
+            ([this](const Message& msg){_incoming_message_handler(msg);});
 
         /* wait for exit request */
         std::unique_lock<std::mutex> lock(mutex_);
