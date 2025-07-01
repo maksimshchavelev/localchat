@@ -80,7 +80,7 @@ bool JsonTransport::send_message(const std::string &host, const Message &msg) co
 
         return true;
 
-    } catch (...) { throw; }
+    } catch (...) { return false; }
 }
 
 
