@@ -8,7 +8,7 @@ This project is licensed under the [MIT License](./LICENSE).
 
 It uses third-party components:
 
-- [ncurses](https://invisible-island.net/ncurses/) — MIT-like license
+- [FTXUI](https://github.com/ArthurSonzogni/FTXUI) — MIT license
 - [jsoncpp](https://github.com/open-source-parsers/jsoncpp) - MIT license
 - [net](https://github.com/AlexandreRouma/net) - LGPL-3.0 license
 - [netif](https://github.com/GMLC-TDC/netif) - BSD-3-Clause license
