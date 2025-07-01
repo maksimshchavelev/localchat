@@ -81,15 +81,29 @@ void App::set_username(const std::string &username)
 
 
 /* public method */
-void App::_incoming_message_handler(Message msg)
+void App::_incoming_message_handler(const Message& msg)
 {
     using namespace std::chrono;
 
     std::ostringstream oss;
 
+#if defined(__unix__)
+    /* unix implementation */
     auto utc = system_clock::to_time_t(msg.send_time);
     auto local_tm = std::localtime(&utc);
     oss << std::put_time(local_tm, "%H:%M");
+
+#elif defined(_WIN32) or defined(_WIN64)
+    /* windows implementation */
+    std::time_t utc = std::chrono::system_clock::to_time_t(msg.send_time);
+    std::tm local_tm{};
+    if (localtime_s(&local_tm, &utc) != 0) {
+        throw std::runtime_error("Failed to convert time");
+    }
+
+    oss << std::put_time(&local_tm, "%H:%M");
+
+#endif
 
     ui_.print_incoming_message(
         from_byteVector<std::string>(msg.sender),
