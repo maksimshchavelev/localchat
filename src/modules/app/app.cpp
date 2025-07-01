@@ -40,8 +40,6 @@ void App::run()
     {
         json_transport_.run_receiving_messages_async([this](Message msg){_incoming_message_handler(msg);});
 
-        // std::bind(&App::_incoming_message_handler, this, std::placeholders::_1)
-
         /* wait for exit request */
         std::unique_lock<std::mutex> lock(mutex_);
         cv_.wait(lock, [this](){ return exit_request_; });
