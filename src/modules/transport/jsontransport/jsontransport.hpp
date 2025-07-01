@@ -27,7 +27,8 @@ public:
      * @param callback Callback which will be called upon receipt of the request
      */
     void run_receiving_messages_async(
-        std::function<void(decltype(std::declval<IProtocol>().deserialize(std::any())))> callback) const override;
+        std::function<void(const decltype(std::declval<IProtocol>().deserialize(std::any()))&)> callback)
+        const override;
 
 
     /**
