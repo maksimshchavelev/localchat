@@ -77,13 +77,9 @@ std::vector<netif::IF_ADDRS> Discovery::_get_ipv4_ifaddrses()
 
     #elif defined(_WIN32) or defined(_WIN64)
         /* windows implementation */
-        for(netif::IF_ADDRS current_ifaddr = addrs; current_ifaddr; current_ifaddr = current_ifaddr->Next)
+        for (netif::IF_ADDRS adapter = addrs; adapter; adapter = adapter->Next)
         {
-            /* AF_INET is an IPv4 address */
-            if(!current_ifaddr->AdapterName || current_ifaddr->IfType != AF_INET)
-                continue;
-            /* else */
-            result.push_back(current_ifaddr);
+            result.push_back(adapter);
         }
 
     #else
@@ -108,14 +104,26 @@ std::set<uint32_t> Discovery::_get_ipv4_binary_addresses()
 
     for(auto* address : addrs)
     {
-    #if defined(__unix)
+    #if defined(__unix__)
         /* unix implementation */
         result.insert(ntohl(reinterpret_cast<sockaddr_in*>(address->ifa_addr)->sin_addr.s_addr));
 
     #elif defined(_WIN32) or defined(_WIN64)
         /* windows implementation */
-        result.insert(ntohl(reinterpret_cast<sockaddr_in*>
-                            (address->FirstUnicastAddress->Address.lpSockaddr)->sin_addr.S_un.S_addr));
+        if (address->FirstUnicastAddress)
+        {
+            for (PIP_ADAPTER_UNICAST_ADDRESS ua = address->FirstUnicastAddress;
+                 ua != nullptr;
+                 ua = ua->Next)
+            {
+                PSOCKADDR sock_addr = ua->Address.lpSockaddr;
+                PSOCKADDR_IN sock_addr_in =
+                    reinterpret_cast<PSOCKADDR_IN>(sock_addr);
+
+                uint32_t ipv4 = ntohl(sock_addr_in->sin_addr.S_un.S_addr);
+                result.insert(ipv4);
+            }
+        }
     #else
         static_assert(false, "Unsupported platform")
     #endif
