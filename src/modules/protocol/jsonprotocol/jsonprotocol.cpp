@@ -34,7 +34,7 @@ Message JsonProtocol::deserialize(const std::any& input) const
     std::string data = root["data"].asString();
     std::string timestamp_minutes = root["send_time"].asString();
 
-    std::chrono::system_clock::time_point send_time { std::chrono::minutes(std::stoi(timestamp_minutes)) };
+    std::chrono::system_clock::time_point send_time { std::chrono::minutes(std::stoll(timestamp_minutes)) };
 
     Message msg
         {
