@@ -37,6 +37,7 @@ include(FetchContent)
 
 
 set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE) # To build FTXUI as static library
 
 # For FTXUI
 
