@@ -26,9 +26,6 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     ${CMAKE_SOURCE_DIR}/src/*.tpp)
 
 
-# fingind jsoncpp
-find_package(jsoncpp CONFIG REQUIRED)
-
 
 add_executable(${PROJECT_NAME} ${SOURCES} libs/AlexandreRouma-net/net.cpp)
 
@@ -36,16 +33,36 @@ target_link_directories(${PROJECT_NAME} PRIVATE libs)
 target_include_directories(${PROJECT_NAME} PRIVATE libs)
 
 
+include(FetchContent)
+
 
 set(FTXUI_ENABLE_INSTALL OFF CACHE BOOL "" FORCE)
 
 # For FTXUI
-include(FetchContent)
+
+message(STATUS "Configuring FTXUI...")
 FetchContent_Declare(ftxui
   GIT_REPOSITORY https://github.com/ArthurSonzogni/ftxui
   GIT_TAG v6.1.9
 )
 FetchContent_MakeAvailable(ftxui)
+
+
+
+# For jsoncpp
+
+message(STATUS "Configuring jsoncpp...")
+FetchContent_Declare(jsoncpp
+  GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
+  GIT_TAG 1.9.6
+  EXCLUDE_FROM_ALL
+)
+FetchContent_Populate(jsoncpp)
+add_subdirectory(${jsoncpp_SOURCE_DIR} ${jsoncpp_BINARY_DIR} EXCLUDE_FROM_ALL)
+
+# Disable uneccessary things for jsoncpp
+set(JSONCPP_WITH_TESTS OFF)
+set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF)
 
 
 
@@ -82,7 +99,7 @@ endif()
 
 
 
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin COMPONENT executable)
 
 
 
