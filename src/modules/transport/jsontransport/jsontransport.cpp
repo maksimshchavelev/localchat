@@ -53,6 +53,7 @@ void JsonTransport::run_receiving_messages_async(
             if(auto result = _json_from_str(data); result.has_value())
             {
                 auto deserialized_result = protocol_.deserialize(result.value());
+                deserialized_result.message_type = Message::Type::INCOMING;
                 callback(deserialized_result);
                 continue;
             }
