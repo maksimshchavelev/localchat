@@ -21,7 +21,8 @@ struct Message
     enum class Type
     {
         OUTCOMING,
-        INCOMING
+        INCOMING,
+        UNKNOWN
     };
 
 
