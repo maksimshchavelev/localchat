@@ -18,9 +18,17 @@ using ByteVector = std::vector<std::byte>;
  */
 struct Message
 {
+    enum class Type
+    {
+        OUTCOMING,
+        INCOMING
+    };
+
+
     ByteVector sender;
     ByteVector data;
     std::chrono::system_clock::time_point send_time;
+    Type message_type;
 };
 
 
