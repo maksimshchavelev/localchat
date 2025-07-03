@@ -19,7 +19,6 @@ std::any JsonProtocol::serialize(const Message& msg) const
     root["sender"] = from_byteVector<std::string>(msg.sender);
     root["send_time"] = std::to_string(timestamp_minutes);
     root["data"] = from_byteVector<std::string>(msg.data);
-    root["type"] = static_cast<int>(msg.message_type);
 
     return root;
 }
@@ -34,7 +33,6 @@ Message JsonProtocol::deserialize(const std::any& input) const
     std::string sender = root["sender"].asString();
     std::string data = root["data"].asString();
     std::string timestamp_minutes = root["send_time"].asString();
-    int type = root["type"].asInt();
 
     std::chrono::system_clock::time_point send_time(std::chrono::minutes(std::stoll(timestamp_minutes)));
 
@@ -43,7 +41,7 @@ Message JsonProtocol::deserialize(const std::any& input) const
             .sender = ByteVector(to_byteVector(sender)),
             .data = ByteVector(to_byteVector(data)),
             .send_time = send_time,
-            .message_type = static_cast<Message::Type>(type)
+            .message_type = Message::Type::UNKNOWN
         };
 
     return msg;
