@@ -24,6 +24,9 @@ First of all, make sure you have cmake version 3.28 or higher installed. You sho
 - Run `cmake --build . --parallel` (`cmake --build . --parallel --config Release` on Windows)
 - For Debian-based systems: after building, you can run `cmake --build . --target package` to generate a `.deb` package with localchat
 
+# Where can I get the documentation for the code?
+If you have doxygen installed, run `doxygen Doxyfile` in the root directory of the project and see the `docs` folder
+
 
 ## License
 
