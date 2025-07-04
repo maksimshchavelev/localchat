@@ -9,16 +9,20 @@
 static std::atomic_bool g_exit_request{false};
 
 
-void exit_signal(int) {
+void exit_signal(int)
+{
     g_exit_request.store(true);
     app().exit();
 }
 
 
-std::string safe_getline() {
+std::string safe_getline()
+{
     std::string line;
-    char c;
 
+    #if defined(__unix__)
+
+    char c;
     while (true)
     {
         size_t n = read(STDIN_FILENO, &c, 1);
@@ -46,15 +50,32 @@ std::string safe_getline() {
         }
     }
 
+    #elif defined(_WIN32) or defined(_WIN64)
+
+    std::getline(std::cin, line);
+
+    #endif
+
     return line;
 }
 
-int main() {
+
+
+int main()
+{
+    #if defined(__unix__)
+
     struct sigaction sa{};
     sa.sa_handler = exit_signal;
     sa.sa_flags   = 0;
     sigemptyset(&sa.sa_mask);
     sigaction(SIGINT, &sa, nullptr);
+
+    #elif defined(_WIN32) or defined(_WIN64)
+
+    signal(SIGINT, exit_signal);
+
+    #endif
 
 
     std::cout << "Type username >>> " << std::flush;
@@ -67,7 +88,12 @@ int main() {
 
     if(username.empty())
     {
+        #if defined(__unix__)
+
         std::cout << "Got empty username. Exiting" << std::endl;
+
+        #endif
+
         return 0;
     }
 
