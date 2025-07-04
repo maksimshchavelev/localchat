@@ -68,26 +68,14 @@ set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF)
 
 
 
-
-if(WIN32)
-  target_link_libraries(${PROJECT_NAME} PRIVATE
-      # Chose a submodule
-      ftxui::component
-      ftxui::dom
-      ftxui::screen
-
-    jsoncpp_lib
-  )
-else()
-  target_link_libraries(${PROJECT_NAME} PRIVATE
-      # Chose a submodule
-      ftxui::component
-      ftxui::dom
-      ftxui::screen
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    # Chose a submodule
+    ftxui::component
+    ftxui::dom
+    ftxui::screen
 
     jsoncpp_static # static linking with jsoncpp
-  )
-endif()
+)
 
 
 
